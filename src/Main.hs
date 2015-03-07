@@ -1,6 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-import Zx.Start
+import Zx.Commands.Help
+import Zx.Commands.Start
 
 import qualified Data.Text as T
 import           Data.Text.IO as TIO
@@ -12,11 +13,12 @@ version = "0.1"
 
 printUsage :: IO ()
 printUsage = do
-    TIO.putStrLn "Usage: zx [--version] [--help] <command> [<args>]\n"
+    TIO.putStrLn "Usage: zx [--version] <command> [<args>]\n"
     TIO.putStrLn "Commands:"
-    TIO.putStrLn "    start       Starts a new session"
+    TIO.putStrLn "    help        Prints out more help about a given command."
     TIO.putStrLn "    log         Logs a message to the currently open session, or the last"
     TIO.putStrLn "                open session."
+    TIO.putStrLn "    start       Starts a new session"
     TIO.putStrLn "    stop        Stops the current session"
     exitWith ExitSuccess
 
@@ -29,7 +31,7 @@ printVersion = do
 
 runCommand :: [T.Text] -> IO ()
 runCommand ["--version"] = printVersion
-runCommand ["--help"] = printUsage
+runCommand ["help"] = zxHelp
 runCommand ["start"] = zxStart
 runCommand _ = printUsage
 

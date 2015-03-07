@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Zx.Start (zxStart) where
+module Zx.Commands.Start (zxStart) where
 
 import           Zx.IO
 
