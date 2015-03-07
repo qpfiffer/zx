@@ -1,5 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
+import Zx.Start
+
 import Data.ByteString.Lazy.Char8 as BS
 import System.Environment
 import System.Exit
@@ -27,6 +29,7 @@ printVersion = do
 runCommand :: [BS.ByteString] -> IO ()
 runCommand ["--version"] = printVersion
 runCommand ["--help"] = printUsage
+runCommand ["start"] = zxStart
 runCommand _ = printUsage
 
 main :: IO ()
