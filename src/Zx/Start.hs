@@ -1,12 +1,15 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module Zx.Start where
+module Zx.Start (zxStart) where
 
-import Data.ByteString.Lazy.Char8 as BS
-import System.Environment
-import System.Exit
+import           Zx.IO
+
+import qualified Data.Text as T
+import           Data.Text.IO as TIO
+import           System.Environment
+import           System.Exit
 
 zxStart :: IO ()
 zxStart = do
-    BS.putStrLn "start"
+    currentProject <- zxOpenProject
     exitWith ExitSuccess

@@ -2,31 +2,32 @@
 
 import Zx.Start
 
-import Data.ByteString.Lazy.Char8 as BS
-import System.Environment
-import System.Exit
+import qualified Data.Text as T
+import           Data.Text.IO as TIO
+import           System.Environment
+import           System.Exit
 
-version :: BS.ByteString
+version :: T.Text
 version = "0.1"
 
 printUsage :: IO ()
 printUsage = do
-    BS.putStrLn "Usage: zx [--version] [--help] <command> [<args>]\n"
-    BS.putStrLn "Commands:"
-    BS.putStrLn "    start       Starts a new session"
-    BS.putStrLn "    log         Logs a message to the currently open session, or the last"
-    BS.putStrLn "                open session."
-    BS.putStrLn "    stop        Stops the current session"
+    TIO.putStrLn "Usage: zx [--version] [--help] <command> [<args>]\n"
+    TIO.putStrLn "Commands:"
+    TIO.putStrLn "    start       Starts a new session"
+    TIO.putStrLn "    log         Logs a message to the currently open session, or the last"
+    TIO.putStrLn "                open session."
+    TIO.putStrLn "    stop        Stops the current session"
     exitWith ExitSuccess
 
 printVersion :: IO ()
 printVersion = do
-    BS.putStrLn $ versionStr
+    TIO.putStrLn versionStr
     exitWith ExitSuccess
   where
-    versionStr = BS.concat ["zx v", version]
+    versionStr = T.concat ["zx v", version]
 
-runCommand :: [BS.ByteString] -> IO ()
+runCommand :: [T.Text] -> IO ()
 runCommand ["--version"] = printVersion
 runCommand ["--help"] = printUsage
 runCommand ["start"] = zxStart
@@ -35,7 +36,7 @@ runCommand _ = printUsage
 main :: IO ()
 main = do
     args <- getArgs
-    runCommand $ fmap BS.pack args
+    runCommand $ fmap T.pack args
 
     exitWith ExitSuccess
 
